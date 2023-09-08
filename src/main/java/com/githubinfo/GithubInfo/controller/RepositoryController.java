@@ -1,8 +1,7 @@
 package com.githubinfo.GithubInfo.controller;
 
-import com.githubinfo.GithubInfo.pojo.RepositoryView;
+import com.githubinfo.GithubInfo.singleton.RepositoryView;
 import com.githubinfo.GithubInfo.service.RepositoryService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,13 +12,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@org.springframework.web.bind.annotation.RestController
-public class RestController {
+@RestController
+public class RepositoryController {
 
     private final RepositoryService repositoryService;
 
     @Autowired
-    public RestController(RepositoryService repositoryService) {
+    public RepositoryController(RepositoryService repositoryService) {
         this.repositoryService = repositoryService;
     }
 

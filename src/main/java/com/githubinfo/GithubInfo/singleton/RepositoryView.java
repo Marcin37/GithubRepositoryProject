@@ -1,4 +1,4 @@
-package com.githubinfo.GithubInfo.pojo;
+package com.githubinfo.GithubInfo.singleton;
 
 import lombok.Getter;
 import lombok.Setter;

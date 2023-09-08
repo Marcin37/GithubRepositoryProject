@@ -1,4 +1,4 @@
-package com.githubinfo.GithubInfo.errorhandler;
+package com.githubinfo.GithubInfo.errorattribute;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;

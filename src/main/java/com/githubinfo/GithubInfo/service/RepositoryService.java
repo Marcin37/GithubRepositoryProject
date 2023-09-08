@@ -1,13 +1,11 @@
 package com.githubinfo.GithubInfo.service;
 
-import com.githubinfo.GithubInfo.pojo.Branch;
-import com.githubinfo.GithubInfo.pojo.Repository;
-import com.githubinfo.GithubInfo.pojo.RepositoryView;
+import com.githubinfo.GithubInfo.singleton.Branch;
+import com.githubinfo.GithubInfo.singleton.Repository;
+import com.githubinfo.GithubInfo.singleton.RepositoryView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.InvalidMediaTypeException;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -40,9 +38,11 @@ public class RepositoryService {
     private List<RepositoryView> getFinalRepositories(List<Repository> repositories) {
         List<RepositoryView> finalRepositories = new LinkedList<RepositoryView>();
         for (Repository r : repositories) {
-            r.setBranches(getBranches(r));
-            RepositoryView repositoryView=new RepositoryView(r.getName(),r.getOwner(),r.getBranches());
-            finalRepositories.add(repositoryView);
+            if (!r.isFork()){
+                r.setBranches(getBranches(r));
+                RepositoryView repositoryView=new RepositoryView(r.getName(),r.getOwner(),r.getBranches());
+                finalRepositories.add(repositoryView);
+            }
         }
         return finalRepositories;
     }

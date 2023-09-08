@@ -1,10 +1,7 @@
-package com.githubinfo.GithubInfo.pojo;
+package com.githubinfo.GithubInfo.singleton;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
@@ -21,15 +18,19 @@ public class Repository {
     @Getter
     @Setter
     private List<Branch> branches;
+    @Getter
+    @Setter
+    private boolean fork;
 
 
     public Repository() {
     }
 
-    public Repository(String name, Owner owner,String branches_url, List<Branch> branch) {
+    public Repository(String name, Owner owner,String branches_url, List<Branch> branch,boolean fork) {
         this.name = name;
         this.owner = owner;
         this.branches_url = branches_url;
         this.branches = branch;
+        this.fork=fork;
     }
 }
