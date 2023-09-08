@@ -6,9 +6,12 @@ import com.githubinfo.GithubInfo.pojo.RepositoryView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.util.*;
@@ -23,7 +26,9 @@ public class RepositoryService {
     public RepositoryService() {
     }
 
-    public List<RepositoryView> getAllRepositories(String user,String headers) {
+    public List<RepositoryView> getAllRepositories(String user,String headers) throws HttpMediaTypeNotAcceptableException, WebClientResponseException {
+        if (headers.equals("application/xml"))
+            throw new HttpMediaTypeNotAcceptableException("Message");
         webClient=buildWebClient(headers);
         String url = "https://api.github.com/users/" + user + "/repos";
         Mono<List<Repository>> response = webClient.get().uri(url).retrieve().bodyToMono(new ParameterizedTypeReference<List<Repository>>() {});
